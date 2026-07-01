@@ -65,6 +65,7 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
       setPassword("");
       setConfirmPassword("");
     } catch (err: any) {
+      console.error(err);
       setError(err?.message || "Unable to update your password.");
     } finally {
       setIsLoading(false);
