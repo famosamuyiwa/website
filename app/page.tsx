@@ -29,7 +29,7 @@ export default function Home() {
   const closeComingSoon = () => setSelectedStore(null);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-white text-ink">
+    <main className="text-ink min-h-screen overflow-hidden bg-white">
       <Hero onDownload={openComingSoon} />
       <ProductPreview />
       <HowItWorks />
@@ -62,7 +62,7 @@ function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="transition hover:text-lemon"
+              className="hover:text-lemon transition"
             >
               {item.label}
             </a>
@@ -77,7 +77,7 @@ function Hero({ onDownload }: { onDownload: (store: Store) => void }) {
   return (
     <section
       id="top"
-      className="relative min-h-[86svh] overflow-hidden bg-ink text-white"
+      className="bg-ink relative min-h-[86svh] overflow-hidden text-white"
     >
       <Header />
       <Image
@@ -101,7 +101,7 @@ function Hero({ onDownload }: { onDownload: (store: Store) => void }) {
               startDelay={520}
             />
           </p>
-          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-white/82 md:text-lg">
+          <p className="text-white/82 mt-5 max-w-2xl text-base font-medium leading-7 md:text-lg">
             Turn your everyday adventures into epic side quests. Connect with
             people nearby who share your interests and create unforgettable
             experiences together.
@@ -119,7 +119,7 @@ function StoreButtons({ onDownload }: { onDownload: (store: Store) => void }) {
       <button
         type="button"
         onClick={() => onDownload("iOS")}
-        className="flex min-h-14 items-center justify-center gap-3 rounded-full border border-white/35 bg-white/10 px-6 text-sm font-extrabold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/18"
+        className="hover:bg-white/18 flex min-h-14 items-center justify-center gap-3 rounded-full border border-white/35 bg-white/10 px-6 text-sm font-extrabold text-white backdrop-blur-md transition hover:-translate-y-0.5"
       >
         <Image src="/brand/apple.svg" width={20} height={20} alt="" />
         Get it on the App Store
@@ -245,13 +245,13 @@ function ProductPreview() {
     <section className="relative bg-white px-5 py-16 lg:px-8 lg:py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
         <div>
-          <p className="text-sm font-extrabold uppercase text-coral">
+          <p className="text-coral text-sm font-extrabold uppercase">
             Do First, Talk Later
           </p>
           <h2 className="mt-3 max-w-xl text-4xl font-extrabold leading-tight md:text-6xl">
             <AnimatedLetters text="Find your crew. Do whatever you want." />
           </h2>
-          <p className="mt-5 max-w-xl text-base font-medium leading-7 text-muted md:text-lg">
+          <p className="text-muted mt-5 max-w-xl text-base font-medium leading-7 md:text-lg">
             Leankly turns your phone into a feed of invitations... study
             sessions, runs, food crawls, museum days, gaming nights, volunteer
             shifts, and whatever else makes a good side quest.
@@ -259,7 +259,7 @@ function ProductPreview() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[680px]">
-          <div className="relative mx-auto grid max-w-[560px] grid-cols-[1fr_0.72fr] items-end gap-4">
+          <div className="relative mx-auto hidden max-w-[560px] grid-cols-[1fr_0.72fr] items-end gap-4 sm:grid">
             <PhonePreview />
             <div className="mb-8 hidden gap-4 sm:grid">
               <MiniRequestCard />
@@ -276,11 +276,11 @@ function PhonePreview() {
   const leank = leankExamples[0];
 
   return (
-    <div className="relative mx-auto w-full max-w-[330px] rounded-[2rem] border border-ink/12 bg-ink p-3 shadow-soft">
+    <div className="border-ink/12 bg-ink shadow-soft relative mx-auto w-full max-w-[330px] rounded-[2rem] border p-3">
       <div className="overflow-hidden rounded-[1.45rem] bg-white">
         <div className="flex items-center justify-between px-4 pb-3 pt-4">
           <div>
-            <p className="text-xs font-extrabold uppercase text-muted">
+            <p className="text-muted text-xs font-extrabold uppercase">
               Discover
             </p>
             <p className="text-lg font-extrabold">Today&apos;s Leanks</p>
@@ -306,7 +306,7 @@ function PhonePreview() {
           ))}
         </div>
         <div className="px-4 pb-4">
-          <div className="overflow-hidden rounded-lg bg-white shadow-lift">
+          <div className="shadow-lift overflow-hidden rounded-lg bg-white">
             <div className="relative h-64 overflow-hidden">
               <ImageReveal className="absolute inset-0">
                 <Image
@@ -327,21 +327,21 @@ function PhonePreview() {
                 <p className="text-2xl font-extrabold leading-7 text-white">
                   {leank.title}
                 </p>
-                <p className="mt-1 text-sm font-bold text-white/82">
+                <p className="text-white/82 mt-1 text-sm font-bold">
                   Hosted by {leank.host}
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 p-3">
-              <div className="rounded-lg bg-aqua/10 p-3">
-                <p className="text-xs font-bold text-muted">When</p>
+              <div className="bg-aqua/10 rounded-lg p-3">
+                <p className="text-muted text-xs font-bold">When</p>
                 <p className="mt-1 text-sm font-extrabold">{leank.time}</p>
               </div>
-              <div className="rounded-lg bg-coral/10 p-3">
-                <p className="text-xs font-bold text-muted">Needed</p>
+              <div className="bg-coral/10 rounded-lg p-3">
+                <p className="text-muted text-xs font-bold">Needed</p>
                 <p className="mt-1 text-sm font-extrabold">2 people</p>
               </div>
-              <div className="col-span-2 flex items-center gap-2 rounded-lg bg-ink/5 p-3">
+              <div className="bg-ink/5 col-span-2 flex items-center gap-2 rounded-lg p-3">
                 <MapPin size={16} className="text-coral" />
                 <p className="text-sm font-extrabold">{leank.place}</p>
               </div>
@@ -351,14 +351,14 @@ function PhonePreview() {
             <button
               type="button"
               aria-label="Skip"
-              className="grid size-16 place-items-center rounded-full bg-white shadow-lift"
+              className="shadow-lift grid size-16 place-items-center rounded-full bg-white"
             >
               <X size={26} />
             </button>
             <button
               type="button"
               aria-label="Like"
-              className="grid size-16 place-items-center rounded-full bg-white shadow-lift"
+              className="shadow-lift grid size-16 place-items-center rounded-full bg-white"
             >
               <Heart size={27} className="fill-coral text-coral" />
             </button>
@@ -371,7 +371,7 @@ function PhonePreview() {
 
 function MiniRequestCard() {
   return (
-    <div className="rounded-lg border border-ink/10 bg-white p-4 shadow-soft">
+    <div className="border-ink/10 shadow-soft rounded-lg border bg-white p-4">
       <div className="flex items-center gap-3">
         <ImageReveal className="relative size-12 overflow-hidden rounded-full">
           <Image
@@ -384,18 +384,18 @@ function MiniRequestCard() {
         </ImageReveal>
         <div>
           <p className="text-sm font-extrabold">Nina wants to join</p>
-          <p className="text-xs font-semibold text-muted">Quick 5k run...</p>
+          <p className="text-muted text-xs font-semibold">Quick 5k run...</p>
         </div>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button
-          className="rounded-full bg-ink/6 py-2 text-xs font-extrabold"
+          className="bg-ink/6 rounded-full py-2 text-xs font-extrabold"
           type="button"
         >
           Decline
         </button>
         <button
-          className="rounded-full bg-ink py-2 text-xs font-extrabold text-white"
+          className="bg-ink rounded-full py-2 text-xs font-extrabold text-white"
           type="button"
         >
           Accept
@@ -407,16 +407,16 @@ function MiniRequestCard() {
 
 function ChatPreview() {
   return (
-    <div className="rounded-lg bg-ink p-4 text-white shadow-soft">
+    <div className="bg-ink shadow-soft rounded-lg p-4 text-white">
       <div className="flex items-center gap-2">
         <Smartphone size={18} className="text-aqua" />
         <p className="text-sm font-extrabold">Leank chat</p>
       </div>
       <div className="mt-4 space-y-2">
-        <p className="w-fit max-w-[90%] rounded-lg bg-white/12 px-3 py-2 text-xs font-semibold">
+        <p className="bg-white/12 w-fit max-w-[90%] rounded-lg px-3 py-2 text-xs font-semibold">
           Meet by the front entrance?
         </p>
-        <p className="ml-auto w-fit max-w-[90%] rounded-lg bg-aqua px-3 py-2 text-xs font-extrabold text-ink">
+        <p className="bg-aqua text-ink ml-auto w-fit max-w-[90%] rounded-lg px-3 py-2 text-xs font-extrabold">
           Bet. I&apos;ll bring snacks.
         </p>
       </div>
@@ -429,7 +429,7 @@ function HowItWorks() {
     <section id="how-it-works" className="bg-white px-5 py-16 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 pb-16 md:grid-cols-2 md:items-start">
-          <p className="text-sm font-extrabold uppercase tracking-wide text-muted">
+          <p className="text-muted text-sm font-extrabold uppercase tracking-wide">
             HOW IT WORKS
           </p>
           <h2 className="max-w-2xl text-2xl font-extrabold leading-tight md:text-3xl">
@@ -437,19 +437,19 @@ function HowItWorks() {
           </h2>
         </div>
 
-        <div className="border-t border-ink/10">
+        <div className="border-ink/10 border-t">
           {howItWorks.map((item, index) => (
             <article
               key={item.title}
-              className="grid gap-8 border-b border-ink/10 py-12 md:grid-cols-[0.3fr_0.36fr_0.34fr] md:items-start lg:py-14"
+              className="border-ink/10 grid gap-8 border-b py-12 md:grid-cols-[0.3fr_0.36fr_0.34fr] md:items-start lg:py-14"
             >
               <div>
-                <p className="text-lg font-semibold text-muted">0{index + 1}</p>
+                <p className="text-muted text-lg font-semibold">0{index + 1}</p>
                 <h3 className="mt-12 text-2xl font-semibold leading-tight md:text-3xl">
                   {item.title}
                 </h3>
               </div>
-              <p className="max-w-lg text-base font-medium leading-8 text-muted md:pt-14">
+              <p className="text-muted max-w-lg text-base font-medium leading-8 md:pt-14">
                 {item.body}
               </p>
               <HowItWorksVisual index={index} />
@@ -464,11 +464,11 @@ function HowItWorks() {
 function HowItWorksVisual({ index }: { index: number }) {
   if (index === 0) {
     return (
-      <div className="grid grid-cols-3 gap-1.5 rounded-lg bg-cloud p-3">
+      <div className="bg-cloud grid grid-cols-3 gap-1.5 rounded-lg p-3">
         {leankExamples.map((example, imageIndex) => (
           <ImageReveal
             key={`${example.title}-${imageIndex}`}
-            className="relative aspect-square overflow-hidden rounded-md bg-ink"
+            className="bg-ink relative aspect-square overflow-hidden rounded-md"
           >
             <Image
               src={example.image}
@@ -502,7 +502,7 @@ function HowItWorksVisual({ index }: { index: number }) {
     ];
 
     return (
-      <div className="relative h-56 overflow-hidden rounded-lg bg-cloud">
+      <div className="bg-cloud relative h-56 overflow-hidden rounded-lg">
         <svg
           className="absolute inset-0 h-full w-full"
           viewBox="0 0 640 224"
@@ -539,7 +539,7 @@ function HowItWorksVisual({ index }: { index: number }) {
           />
         </svg>
 
-        <div className="absolute left-1/2 top-1/2 z-10 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft ring-8 ring-aqua/10">
+        <div className="shadow-soft ring-aqua/10 absolute left-1/2 top-1/2 z-10 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white ring-8">
           <Image
             src="/brand/gradient-icon.png"
             width={32}
@@ -552,7 +552,7 @@ function HowItWorksVisual({ index }: { index: number }) {
         {avatarImages.map((image, avatarIndex) => (
           <ImageReveal
             key={`${image}-${avatarIndex}`}
-            className={`absolute ${positions[avatarIndex]} z-10 size-12 overflow-hidden rounded-full border-4 border-white bg-white shadow-lift`}
+            className={`absolute ${positions[avatarIndex]} shadow-lift z-10 size-12 overflow-hidden rounded-full border-4 border-white bg-white`}
           >
             <Image
               src={image}
@@ -569,11 +569,11 @@ function HowItWorksVisual({ index }: { index: number }) {
 
   if (index === 2) {
     return (
-      <div className="rounded-lg bg-cloud p-5">
-        <div className="w-fit max-w-[86%] rounded-lg bg-white px-4 py-3 text-sm text-ink shadow-sm">
+      <div className="bg-cloud rounded-lg p-5">
+        <div className="text-ink w-fit max-w-[86%] rounded-lg bg-white px-4 py-3 text-sm shadow-sm">
           I&apos;m in. What time should we meet?
         </div>
-        <div className="ml-auto mt-3 w-fit max-w-[86%] rounded-lg bg-aqua text-white px-4 py-3 text-sm  text-ink shadow-sm">
+        <div className="bg-aqua text-ink ml-auto mt-3 w-fit max-w-[86%] rounded-lg px-4 py-3 text-sm  text-white shadow-sm">
           6:30 works. Bringing snacks.
         </div>
         <div className="mt-4 flex -space-x-2">
@@ -597,7 +597,7 @@ function HowItWorksVisual({ index }: { index: number }) {
   }
 
   return (
-    <div className="rounded-lg bg-ink p-5 text-white">
+    <div className="bg-ink rounded-lg p-5 text-white">
       <p className="text-sm font-extrabold">Sunset picnic at the park</p>
       <p className="mt-2 text-xs font-semibold text-white/65">
         Accepted requests move into one focused Leank chat.
@@ -615,14 +615,14 @@ function LeanksGrid() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="text-sm font-extrabold uppercase text-coral">
+            <p className="text-coral text-sm font-extrabold uppercase">
               Find your kind of leank
             </p>
             <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-6xl">
               <AnimatedLetters text="From quick hangs to full plot episodes" />
             </h2>
           </div>
-          <p className="max-w-md text-base font-medium leading-7 text-muted">
+          <p className="text-muted max-w-md text-base font-medium leading-7">
             Everything you need to turn spontaneous ideas into real adventures.
           </p>
         </div>
@@ -631,7 +631,7 @@ function LeanksGrid() {
           {categories.map((category) => (
             <article
               key={category.title}
-              className="group relative min-h-64 overflow-hidden rounded-lg bg-ink"
+              className="bg-ink group relative min-h-64 overflow-hidden rounded-lg"
             >
               <ImageReveal className="absolute inset-0">
                 <Image
@@ -645,7 +645,7 @@ function LeanksGrid() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,19,31,0)_20%,rgba(16,19,31,0.86)_100%)]" />
               <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
                 <h3 className="text-2xl font-extrabold">{category.title}</h3>
-                <p className="mt-1 text-sm font-semibold text-white/78">
+                <p className="text-white/78 mt-1 text-sm font-semibold">
                   {category.label}
                 </p>
               </div>
@@ -665,7 +665,7 @@ function StoriesSection() {
           {socialProofImages.map((image, index) => (
             <ImageReveal
               key={image}
-              className={`relative overflow-hidden rounded-lg bg-ink ${index === 1 ? "mt-10 h-80" : "h-64"}`}
+              className={`bg-ink relative overflow-hidden rounded-lg ${index === 1 ? "mt-10 h-80" : "h-64"}`}
             >
               <Image
                 src={image}
@@ -679,18 +679,18 @@ function StoriesSection() {
         </div>
 
         <div>
-          <p className="text-sm font-extrabold uppercase text-coral">
+          <p className="text-coral text-sm font-extrabold uppercase">
             Designed for real life
           </p>
           <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-6xl">
             <AnimatedLetters text="Build meaningful connections through shared experiences" />
           </h2>
-          <div className="mt-8 border-l-4 border-aqua pl-5">
+          <div className="border-aqua mt-8 border-l-4 pl-5">
             <p className="text-xl font-semibold leading-8">
               “I don’t need another vague ‘what are you up to?’ chat. I need
               someone who is already down for the leank.”
             </p>
-            <p className="mt-3 text-sm font-bold text-muted">~ O. Famosa</p>
+            <p className="text-muted mt-3 text-sm font-bold">~ O. Famosa</p>
           </div>
         </div>
       </div>
@@ -702,7 +702,7 @@ function Footer({ onDownload }: { onDownload: (store: Store) => void }) {
   return (
     <footer className="bg-ink px-5 py-12 text-white lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-8 border-b border-white/12 pb-10 md:flex-row md:items-end md:justify-between">
+        <div className="border-white/12 flex flex-col gap-8 border-b pb-10 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="flex items-center gap-3">
               <Image
@@ -739,19 +739,19 @@ function Footer({ onDownload }: { onDownload: (store: Store) => void }) {
           <div className="flex flex-wrap gap-5 text-sm font-extrabold text-white">
             <a
               href="https://leankly.com/privacy"
-              className="inline-flex items-center gap-1 text-white/75 hover:text-aqua"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
             >
               Privacy <ExternalLink size={14} />
             </a>
             <a
               href="https://leankly.com/contact"
-              className="inline-flex items-center gap-1 text-white/75 hover:text-aqua"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
             >
               Contact <ExternalLink size={14} />
             </a>
             <a
               href="https://x.com/leanklyapp"
-              className="inline-flex items-center gap-1 text-white/75 hover:text-aqua"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
             >
               X <ExternalLink size={14} />
             </a>
@@ -773,33 +773,33 @@ function DownloadModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-ink/70 px-5 backdrop-blur-sm"
+      className="bg-ink/70 fixed inset-0 z-50 grid place-items-center px-5 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="download-title"
     >
-      <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-soft">
+      <div className="shadow-soft relative w-full max-w-md rounded-lg bg-white p-6">
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-ink/6 hover:bg-ink/10"
+          className="bg-ink/6 hover:bg-ink/10 absolute right-4 top-4 grid size-9 place-items-center rounded-full"
         >
           <X size={18} />
         </button>
-        <div className="grid size-14 place-items-center rounded-lg bg-aqua/12 text-aqua">
+        <div className="bg-aqua/12 text-aqua grid size-14 place-items-center rounded-lg">
           <Download size={25} />
         </div>
         <h2
           id="download-title"
-          className="mt-5 mb-5 text-2xl text-center font-extrabold"
+          className="mb-5 mt-5 text-center text-2xl font-extrabold"
         >
           {store} download is coming soon
         </h2>
         <button
           type="button"
           onClick={onClose}
-          className="mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-sm font-extrabold text-white hover:bg-aqua"
+          className="bg-ink hover:bg-aqua mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-5 text-sm font-extrabold text-white"
         >
           Got it
           <ArrowRight size={17} />
