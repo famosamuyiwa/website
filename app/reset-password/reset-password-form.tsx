@@ -2,20 +2,19 @@
 
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Client, Account } from "appwrite";
 
 type Props = {
   endpoint: string;
   projectId: string;
 };
 
-type AppwriteError = {
-  message?: string;
-};
-
 export default function ResetPasswordForm({ endpoint, projectId }: Props) {
   const params = useSearchParams();
+
   const userId = params.get("userId") || "";
   const secret = params.get("secret") || "";
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,6 +23,13 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
 
   const configurationMissing = !endpoint || !projectId;
   const tokenMissing = !userId || !secret;
+
+  // ✅ Proper Appwrite setup
+  const client = new Client()
+    .setEndpoint(endpoint.replace(/\/$/, ""))
+    .setProject(projectId);
+
+  const account = new Account(client);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,35 +56,16 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
     }
 
     setIsLoading(true);
-    try {
-      const response = await fetch(
-        `${endpoint.replace(/\/$/, "")}/account/recovery`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Appwrite-Project": projectId,
-          },
-          body: JSON.stringify({ userId, secret, password }),
-        },
-      );
-      const body = (await response
-        .json()
-        .catch(() => null)) as AppwriteError | null;
 
-      if (!response.ok) {
-        throw new Error(body?.message || "Unable to update your password.");
-      }
+    try {
+      // ✅ ONLY THIS — no fetch
+      await account.updateRecovery(userId, secret, password);
 
       setIsComplete(true);
       setPassword("");
       setConfirmPassword("");
-    } catch (requestError) {
-      setError(
-        requestError instanceof Error
-          ? requestError.message
-          : "Unable to update your password.",
-      );
+    } catch (err: any) {
+      setError(err?.message || "Unable to update your password.");
     } finally {
       setIsLoading(false);
     }
@@ -90,10 +77,13 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
         <div className="mx-auto mb-5 flex size-14 items-center justify-center rounded-full bg-green-100 text-2xl text-green-700">
           ✓
         </div>
+
         <h1 className="text-2xl font-bold text-[#10131f]">Password updated</h1>
+
         <p className="mt-3 text-sm leading-6 text-gray-500">
           Return to Leankly and sign in with your new password.
         </p>
+
         <a
           href="leankly://"
           className="mt-7 inline-flex h-12 w-full items-center justify-center rounded-full bg-black px-5 font-semibold text-white"
@@ -106,66 +96,39 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
 
   return (
     <section className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl shadow-black/5">
-      <a href="/" className="text-sm font-semibold text-gray-500">
-        ← Leankly
-      </a>
-      <h1 className="mt-7 text-3xl font-bold tracking-tight text-[#10131f]">
-        Reset password
-      </h1>
-      <p className="mt-3 text-sm leading-6 text-gray-500">
-        Choose a new password for your Leankly account.
-      </p>
+      <h1 className="text-3xl font-bold">Reset password</h1>
 
       <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-        <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-gray-700">
-            New password
-          </span>
-          <input
-            type="password"
-            autoComplete="new-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            disabled={isLoading}
-            className="h-14 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-[#10131f] outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
-          />
-        </label>
+        <input
+          type="password"
+          placeholder="New password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoading}
+          className="h-14 w-full rounded-xl border px-4"
+        />
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-gray-700">
-            Confirm password
-          </span>
-          <input
-            type="password"
-            autoComplete="new-password"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-            disabled={isLoading}
-            className="h-14 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-[#10131f] outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
-          />
-        </label>
+        <input
+          type="password"
+          placeholder="Confirm password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          disabled={isLoading}
+          className="h-14 w-full rounded-xl border px-4"
+        />
 
-        {(error || tokenMissing || configurationMissing) && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm leading-5 text-red-700">
-            {error ||
-              (tokenMissing
-                ? "This recovery link is incomplete. Request a new reset email."
-                : "Password reset is not configured. Please contact support.")}
+        {error && (
+          <p className="rounded-xl bg-red-50 p-3 text-sm text-red-600">
+            {error}
           </p>
         )}
 
         <button
           type="submit"
-          disabled={
-            isLoading ||
-            tokenMissing ||
-            configurationMissing ||
-            !password ||
-            !confirmPassword
-          }
-          className="h-12 w-full rounded-full bg-black px-5 font-semibold text-white transition enabled:hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300"
+          disabled={isLoading || tokenMissing || configurationMissing}
+          className="h-12 w-full rounded-full bg-black text-white"
         >
-          {isLoading ? "Updating…" : "Update password"}
+          {isLoading ? "Updating..." : "Update password"}
         </button>
       </form>
     </section>
