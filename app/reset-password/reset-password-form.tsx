@@ -59,7 +59,7 @@ export default function ResetPasswordForm({ endpoint, projectId }: Props) {
 
     try {
       // ✅ ONLY THIS — no fetch
-      await account.updateRecovery(userId, secret, password);
+      await account.updateRecovery({ userId, secret, password });
 
       setIsComplete(true);
       setPassword("");
