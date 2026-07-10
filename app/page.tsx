@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 
 type Store = "iOS" | "Android";
@@ -737,18 +738,36 @@ function Footer({ onDownload }: { onDownload: (store: Store) => void }) {
             © 2026 Leankly. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-5 text-sm font-extrabold text-white">
-            <a
-              href="https://leankly.com/privacy"
+            <Link
+              href="/privacy"
               className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
             >
-              Privacy <ExternalLink size={14} />
-            </a>
-            <a
-              href="https://leankly.com/contact"
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
               className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
             >
-              Contact <ExternalLink size={14} />
-            </a>
+              Terms
+            </Link>
+            <Link
+              href="/safety"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
+            >
+              Safety
+            </Link>
+            <Link
+              href="/account-deletion"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
+            >
+              Account Deletion
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-aqua inline-flex items-center gap-1 text-white/75"
+            >
+              Contact
+            </Link>
             <a
               href="https://x.com/leanklyapp"
               className="hover:text-aqua inline-flex items-center gap-1 text-white/75"

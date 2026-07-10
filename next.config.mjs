@@ -9,13 +9,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com"
-      }
-    ]
+        hostname: "images.unsplash.com",
+      },
+    ],
   },
   turbopack: {
-    root: __dirname
-  }
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
